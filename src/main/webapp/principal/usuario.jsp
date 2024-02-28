@@ -86,11 +86,13 @@
 															<button type="button"
 																class="btn btn-primary btn-round waves-effect waves-light"
 																onclick="limparForm();">Novo</button>
-																
-															<button class="btn btn-success btn-round waves-effect waves-light">Salvar</button>
-																
+
+															<button
+																class="btn btn-success btn-round waves-effect waves-light">Salvar</button>
+
 															<button type="button"
-																class="btn btn-danger btn-round waves-effect waves-light" onclick="criarDelete();">Excluir</button>
+																class="btn btn-danger btn-round waves-effect waves-light"
+																onclick="criaDeleteComAjax();">Excluir</button>
 
 														</form>
 
@@ -103,7 +105,7 @@
 
 										</div>
 
-										<span>${msg}</span>
+										<span id="msg" >${msg}</span>
 
 										<!-- Page-body end -->
 										<div id="styleSelector"></div>
@@ -120,17 +122,51 @@
 
 			<script type="text/javascript">
 			
-			function criarDelete() {
-				document.getElementById("formuser").method = 'get';
-				document.getElementById("acao").value = 'deletar';
-				document.getElementById("formuser").submit();
+			
+			function criaDeleteComAjax() {
+				
+				if (confirm('Deseja relamente deletar o usuário?')) {
+					
+					var urlAction = document.getElementById('formuser').action;
+					var idUser = document.getElementById('id').value;
+					
+					/*Ajax com Jquery (Ajax esta inserido dentro do Jquery)*/
+					$.ajax({
+						
+						method :"get",
+						url: urlAction,
+						data : "id=" + idUser + "&acao=deletarAjax",
+						success : function (response) {
+							
+							limparForm()
+							document.getElementById("msg").textContent = response;
+						}
+						
+					}).fail(function(xhr, status, errorThrown){
+						alert('Erro ao deletar usuário por id:' + xhr.responseText);
+					});
+					
+					
+				}
 				
 			}
+			
+			
+			
+				function criarDelete() {
+
+					if (confirm('Deseja realmente deletar o usuário?')) {
+
+						document.getElementById("formuser").method = 'get';
+						document.getElementById("acao").value = 'deletar';
+						document.getElementById("formuser").submit();
+
+					}
+				}
+
 				
-			
-			
-			
-			function limparForm() {
+				
+				function limparForm() {
 					var elementos = document.getElementById("formuser").elements; /*Retorna dos elementos HTML dentro do form*/
 					/*Outra maneira de pegar os elementos HTML: document.getElementById("formuser").reset; */
 
@@ -138,10 +174,6 @@
 						elementos[i].value = "";
 					}
 				}
-				
-				
-				
-				
 			</script>
 </body>
 
