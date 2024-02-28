@@ -94,6 +94,13 @@
 																class="btn btn-danger btn-round waves-effect waves-light"
 																onclick="criaDeleteComAjax();">Excluir</button>
 
+															<!-- Button trigger modal -->
+															<button type="button" class="btn btn-warning btn-round"
+																data-toggle="modal" data-target="#exampleModalUsuario">
+																Pesquisar</button>
+
+
+
 														</form>
 
 													</div>
@@ -105,7 +112,7 @@
 
 										</div>
 
-										<span id="msg" >${msg}</span>
+										<span id="msg">${msg}</span>
 
 										<!-- Page-body end -->
 										<div id="styleSelector"></div>
@@ -119,40 +126,66 @@
 
 			<jsp:include page="javascriptfile.jsp"></jsp:include>
 
+			<!-- Modal -->
+			<div class="modal fade" id=exampleModalUsuario tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Pesquisar Usuário</h5>
+							<button type="button" class="close" data-dismiss="modal"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+						
+							
+						
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal">Fechar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
 
 			<script type="text/javascript">
-			
-			
-			function criaDeleteComAjax() {
-				
-				if (confirm('Deseja relamente deletar o usuário?')) {
-					
-					var urlAction = document.getElementById('formuser').action;
-					var idUser = document.getElementById('id').value;
-					
-					/*Ajax com Jquery (Ajax esta inserido dentro do Jquery)*/
-					$.ajax({
-						
-						method :"get",
-						url: urlAction,
-						data : "id=" + idUser + "&acao=deletarAjax",
-						success : function (response) {
-							
-							limparForm()
-							document.getElementById("msg").textContent = response;
-						}
-						
-					}).fail(function(xhr, status, errorThrown){
-						alert('Erro ao deletar usuário por id:' + xhr.responseText);
-					});
-					
-					
+				function criaDeleteComAjax() {
+
+					if (confirm('Deseja relamente deletar o usuário?')) {
+
+						var urlAction = document.getElementById('formuser').action;
+						var idUser = document.getElementById('id').value;
+
+						/*Ajax com Jquery (Ajax esta inserido dentro do Jquery)*/
+						$
+								.ajax(
+										{
+
+											method : "get",
+											url : urlAction,
+											data : "id=" + idUser
+													+ "&acao=deletarAjax",
+											success : function(response) {
+
+												limparForm()
+												document.getElementById("msg").textContent = response;
+											}
+
+										})
+								.fail(
+										function(xhr, status, errorThrown) {
+											alert('Erro ao deletar usuário por id:'
+													+ xhr.responseText);
+										});
+
+					}
+
 				}
-				
-			}
-			
-			
-			
+
 				function criarDelete() {
 
 					if (confirm('Deseja realmente deletar o usuário?')) {
@@ -164,8 +197,6 @@
 					}
 				}
 
-				
-				
 				function limparForm() {
 					var elementos = document.getElementById("formuser").elements; /*Retorna dos elementos HTML dentro do form*/
 					/*Outra maneira de pegar os elementos HTML: document.getElementById("formuser").reset; */
