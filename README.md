@@ -16,9 +16,9 @@ Este curso oferece uma compreensão abrangente e prática do desenvolvimento de 
 </p>
 
 <h1 align="center">
-    <a href="[https://pt-br.reactjs.org/](https://www.devmedia.com.br/introducao-ao-java-server-pages-jsp/25602)">🔗 Java Server Pages</a>
+    <a href="https://www.devmedia.com.br/introducao-ao-java-server-pages-jsp/25602">🔗 Java Server Pages</a>
 </h1>
-<p align="center">🚀 texto alternativo de introdução ao Java Servet Pages</p>
+<p align="center">🚀 texto alternativo de Introdução ao Java Server Pages</p>
 
 <h4 align="center"> 
 	🚧  Em construção...  🚧
