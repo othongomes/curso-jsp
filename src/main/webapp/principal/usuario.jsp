@@ -149,29 +149,25 @@
 									onclick="buscarUsuario();">Buscar</button>
 							</div>
 
-							<table class="table">
-								<thead>
-									<tr>
-									<tr>
-										<th scope="col">ID</th>
-										<th scope="col">Nome</th>
-										<th scope="col">Email</th>
-										<th scope="col">Login</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<th scope="row">document.getElementBy</th>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-									</tr>
-									</tr>
-								</thead>
-								<tbody>
+							<div style="height: 400px; overflow: scroll;">
+								<table class="table" id="tabelaresultados">
 
-								</tbody>
-							</table>
+									<thead>
+										<tr>
+											<th scope="col">ID</th>
+											<th scope="col">Nome</th>
+											<th scope="col">Email</th>
+											<th scope="col">Login</th>
+										</tr>
+									</thead>
+									<tbody>
+										<!-- AQUI ESTA SENDO ADICIONADO A FUNÇÃO JQUERY  -->
+										<!-- LOCALIZADA NA FUNÇÃO JAVASCRIPT buscarUsuario()  -->
+									</tbody>
+
+								</table>
+							</div>
+							<span id="totalresultados"></span>
 
 						</div>
 						<div class="modal-footer">
@@ -181,11 +177,11 @@
 					</div>
 				</div>
 			</div>
+			<!-- END Modal -->
 
 
 			<script type="text/javascript">
-			
-			
+				/*Função buscar usuário me javaScript com Ajax*/
 				function buscarUsuario() {
 
 					var nomeBusca = document.getElementById('nomeBusca').value;
@@ -194,22 +190,50 @@
 					if (nomeBusca != null && nomeBusca != ''
 							&& nomeBusca.trim() != '') { /*Validando que tem que ter valor para buscar no banco*/
 
-						$.ajax(
-								{
+						$
+								.ajax(
+										{
 
-									method : "get",
-									url : urlAction,
-									data : "nomeBusca=" + nomeBusca
-											+ "&acao=buscarUserAjax",
-									success : function(response) {
+											method : "get",
+											url : urlAction,
+											data : "nomeBusca=" + nomeBusca
+													+ "&acao=buscarUserAjax",
+											success : function(response) { /*Response vem em formato de String sendo necessário transformar para Json*/
 
-									}
+												var json = JSON.parse(response); /*JSON.parse javascript*/
 
-								}).fail(
-								function(xhr, status, errorThrown) {
-									alert('Erro ao buscar usuário por nome'
-											+ xhr.responseText);
-								});
+												$(
+														'#tabelaresultados > tbody > tr')
+														.remove(); /*Função Jquery remove: Remove conteudos das linhas*/
+
+												for (var i = 0; i < json.length; i++) {
+													$(
+															'#tabelaresultados > tbody')
+															.append(
+																	'<tr><td> '
+																			+ json[i].id
+																			+ '</td> <td> '
+																			+ json[i].nome
+																			+ '</td> <td> '
+																			+ json[i].email
+																			+ '</td> <td> '
+																			+ json[i].login
+																			+ '</td> </tr>'); /*Função JQuery append (adicionar)*/
+
+												}
+
+												document
+														.getElementById('totalresultados').textContent = 'Total de resultados: '
+														+ json.length;
+
+											}
+
+										})
+								.fail(
+										function(xhr, status, errorThrown) {
+											alert('Erro ao buscar usuário por nome'
+													+ xhr.responseText);
+										});
 
 					}
 

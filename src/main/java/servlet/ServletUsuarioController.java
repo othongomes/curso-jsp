@@ -29,22 +29,22 @@ public class ServletUsuarioController extends HttpServlet {
 
 			String acao = request.getParameter("acao");
 
-			if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) {
+			if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletar")) { /*Deletar*/
 
 				String idUser = request.getParameter("id");
 				daoUsuarioRepository.deletarUser(idUser);
 				request.setAttribute("msg", "Excluido com sucesso!");
 				request.getRequestDispatcher("principal/usuario.jsp").forward(request, response);
 
-			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletarAjax")) { // C Ajax
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletarAjax")) { // Deletrar C/ Ajax
 
 				String idUser = request.getParameter("id");
 				daoUsuarioRepository.deletarUser(idUser);
 				response.getWriter().write("Excluido com sucesso!");
 
-			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) { // C Ajax
+			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) { //Buscar usuário C/ Ajax
 
-				String nomeBusca = request.getParameter("nomeBusca");
+				String nomeBusca = request.getParameter("nomeBusca");; 
 				List<ModelLogin> dadosJsonUser = daoUsuarioRepository.consultaUsuarioList(nomeBusca);
 				
 				ObjectMapper mapper = new ObjectMapper();
