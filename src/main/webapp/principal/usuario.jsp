@@ -2,9 +2,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
+<!-- JSP - Standard Tag Library (JSTL)  -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="en">
-
 <jsp:include page="head.jsp"></jsp:include>
 
 <body>
@@ -112,7 +114,39 @@
 
 										</div>
 
+
 										<span id="msg">${msg}</span>
+
+
+										<div style="height: 400px; overflow: scroll;">
+											<table class="table" id="tabelaresultadosview">
+
+												<thead>
+													<tr>
+														<th scope="col">ID</th>
+														<th scope="col">Nome</th>
+														<th scope="col">Email</th>
+														<th scope="col">Login</th>
+													</tr>
+												</thead>
+
+												<tbody>
+													<!-- IMPRIMINDO NA TELA AS INFORMAÇÕES DOS USUÁRIOS COM JSTL -->
+													<c:forEach items='${modelLogins}' var='ml'>
+														<tr>
+															<td><c:out value="${ml.id}"></c:out></td>
+															<td><c:out value="${ml.nome}"></c:out></td>
+															<td><c:out value="${ml.email}"></c:out></td>
+															<td><c:out value="${ml.login}"></c:out></td>
+															<td><a class="btn btn-success"
+																href="<%= request.getContextPath() %>/ServletUsuarioController?acao=buscarEditar&id=${ml.id}">Ver</a>
+															</td>
+														</tr>
+													</c:forEach>
+												</tbody>
+
+											</table>
+										</div>
 
 										<!-- Page-body end -->
 										<div id="styleSelector"></div>
@@ -181,6 +215,18 @@
 
 
 			<script type="text/javascript">
+			
+			
+				/*Função verEditar para o botão "ver"*/
+				function verEditar(id) {
+
+					var urlAction = document.getElementById('formuser').action;
+
+					/*redirecionar com javascript*/
+					window.location.href = urlAction + '?acao=buscarEditar&id='+ id;
+
+				}
+
 				/*Função buscar usuário me javaScript com Ajax*/
 				function buscarUsuario() {
 
@@ -218,7 +264,7 @@
 																			+ json[i].email
 																			+ '</td> <td> '
 																			+ json[i].login
-																			+ '</td> </tr>'); /*Função JQuery append (adicionar)*/
+																			+ '</td> <td> <button onclick="verEditar('+json[i].id+')" type="button" class="btn btn-success">Ver</button> </td> </tr>'); /*Função JQuery append (adicionar)*/
 
 												}
 
