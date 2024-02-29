@@ -152,9 +152,20 @@
 							<table class="table">
 								<thead>
 									<tr>
+									<tr>
 										<th scope="col">ID</th>
 										<th scope="col">Nome</th>
-										<th scope="col">Ver</th>
+										<th scope="col">Email</th>
+										<th scope="col">Login</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<th scope="row">document.getElementBy</th>
+										<td>Mark</td>
+										<td>Otto</td>
+										<td>@mdo</td>
+									</tr>
 									</tr>
 								</thead>
 								<tbody>
@@ -173,14 +184,35 @@
 
 
 			<script type="text/javascript">
+			
+			
 				function buscarUsuario() {
-					
+
 					var nomeBusca = document.getElementById('nomeBusca').value;
-					
-					if (nomeBusca != null && nomeBusca != '' && nomeBusca.trim() != '') { /*Validando que tem que ter valor para buscar no banco*/
-						alert(nomeBusca);
+					var urlAction = document.getElementById('formuser').action;
+
+					if (nomeBusca != null && nomeBusca != ''
+							&& nomeBusca.trim() != '') { /*Validando que tem que ter valor para buscar no banco*/
+
+						$.ajax(
+								{
+
+									method : "get",
+									url : urlAction,
+									data : "nomeBusca=" + nomeBusca
+											+ "&acao=buscarUserAjax",
+									success : function(response) {
+
+									}
+
+								}).fail(
+								function(xhr, status, errorThrown) {
+									alert('Erro ao buscar usuário por nome'
+											+ xhr.responseText);
+								});
+
 					}
-					
+
 				}
 
 				function criaDeleteComAjax() {
