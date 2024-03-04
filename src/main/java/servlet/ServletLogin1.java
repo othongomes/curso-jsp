@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 
 import dao.DAOLoginRepository;
+import dao.DAOUsuarioRepository;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -16,6 +17,7 @@ public class ServletLogin1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private DAOLoginRepository daoLoginRepository = new DAOLoginRepository();
+	private DAOUsuarioRepository daoUsuarioRepository = new DAOUsuarioRepository();
 
 	public ServletLogin1() {
 
@@ -42,6 +44,7 @@ public class ServletLogin1 extends HttpServlet {
 	/* Recebe os dados enviados por um formulário */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 		String login = request.getParameter("login");
 		String senha = request.getParameter("senha");
 		String url = request.getParameter("url");
@@ -56,9 +59,12 @@ public class ServletLogin1 extends HttpServlet {
 				modelLogin.setLogin(login);
 				modelLogin.setSenha(senha);
 
-				if (daoLoginRepository.validarAutenticacao(modelLogin)) {
-
+				if (daoLoginRepository.validarAutenticacao(modelLogin)) { /*Simula login*/
+					
+					modelLogin = daoUsuarioRepository.consultaUsuarioLogado(login);
+					
 					request.getSession().setAttribute("usuario", modelLogin.getLogin());
+					request.getSession().setAttribute("isAdmin", modelLogin.getUseradmin());
 
 					if (url == null || url.equals("null")) {
 						url = "principal/principal.jsp";
