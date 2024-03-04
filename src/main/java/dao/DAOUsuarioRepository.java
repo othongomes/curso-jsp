@@ -46,7 +46,7 @@ public class DAOUsuarioRepository {
 
 		if (modelLogin.isNovo()) { /* Grava um novo */
 
-			String sql = "INSERT INTO model_login(login, senha, nome, email) VALUES (?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO model_login(login, senha, nome, email, usuario_id, perfil) VALUES (?, ?, ?, ?, ?, ?)";
 			PreparedStatement preparasql = connection.prepareStatement(sql);
 
 			preparasql.setString(1, modelLogin.getLogin());
@@ -54,19 +54,21 @@ public class DAOUsuarioRepository {
 			preparasql.setString(3, modelLogin.getNome());
 			preparasql.setString(4, modelLogin.getEmail());
 			preparasql.setLong(5, userLogado);
+			preparasql.setString(6, modelLogin.getPerfil());
 
 			preparasql.execute();
 			connection.commit();
 		} else { /* Editar um existente */
 
-			String sql = "update model_login set login=?, senha=?, nome=?, email=? where id = ?";
+			String sql = "update model_login set login=?, senha=?, nome=?, email=?, perfil=? where id = ?";
 			PreparedStatement statement = connection.prepareStatement(sql);
 
 			statement.setString(1, modelLogin.getLogin());
 			statement.setString(2, modelLogin.getSenha());
 			statement.setString(3, modelLogin.getNome());
 			statement.setString(4, modelLogin.getEmail());
-			statement.setLong(5, modelLogin.getId());
+			statement.setString(5, modelLogin.getPerfil());
+			statement.setLong(6, modelLogin.getId());
 
 			statement.executeUpdate();
 			connection.commit();
@@ -119,6 +121,7 @@ public ModelLogin consultaUsuarioLogado(String login) throws Exception  {
 			modelLogin.setSenha(resutlado.getString("senha"));
 			modelLogin.setNome(resutlado.getString("nome"));
 			modelLogin.setUseradmin(resutlado.getBoolean("useradmin"));
+			modelLogin.setPerfil(resutlado.getString("perfil"));
 			
 		}
 		
@@ -142,12 +145,13 @@ public ModelLogin consultaUsuarioLogado(String login) throws Exception  {
 														 */
 
 		while (resultado.next()) { /* Se tem resultado */
+			
 			modelLogin.setId(resultado.getLong("id"));
 			modelLogin.setEmail(resultado.getString("email"));
 			modelLogin.setLogin(resultado.getString("login"));
 			modelLogin.setSenha(resultado.getString("senha"));
 			modelLogin.setNome(resultado.getString("nome"));
-			modelLogin.setUseradmin(resultado.getBoolean("useradmin"));			;
+			modelLogin.setUseradmin(resultado.getBoolean("useradmin"));		;
 
 		}
 
@@ -174,7 +178,8 @@ public ModelLogin consultaUsuarioLogado(String login) throws Exception  {
 			modelLogin.setLogin(resultado.getString("login"));
 			modelLogin.setSenha(resultado.getString("senha"));
 			modelLogin.setNome(resultado.getString("nome"));
-			modelLogin.setUseradmin(resultado.getBoolean("useradmin"));			;
+			modelLogin.setUseradmin(resultado.getBoolean("useradmin"));
+			modelLogin.setPerfil(resultado.getString("perfil"));
 
 		}
 

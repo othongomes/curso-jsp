@@ -85,6 +85,19 @@
 																	class="form-control" required="required" /> <span
 																	class="form-bar"></span> <label class="float-label">Senha:</label>
 															</div>
+
+															<div class="form-group form-default form-static-label">
+																<select class="form-control"
+																	aria-label="Default select example" name="perfil">
+																	<option >[Selecione o perfil]</option>
+																	<option value="ADMIN">Admin</option>
+																	<option value="SECRETARIA">Secretária</option>
+																	<option value="AUXILIAR">Auxiliar</option>
+																</select>
+																<span class="form-bar"></span>
+																<label class="float-label">Perfil:</label>
+															</div>
+
 															<button type="button"
 																class="btn btn-primary btn-round waves-effect waves-light"
 																onclick="limparForm();">Novo</button>
@@ -215,15 +228,14 @@
 
 
 			<script type="text/javascript">
-			
-			
 				/*Função verEditar para o botão "ver"*/
 				function verEditar(id) {
 
 					var urlAction = document.getElementById('formuser').action;
 
 					/*redirecionar com javascript*/
-					window.location.href = urlAction + '?acao=buscarEditar&id='+ id;
+					window.location.href = urlAction + '?acao=buscarEditar&id='
+							+ id;
 
 				}
 
@@ -264,7 +276,9 @@
 																			+ json[i].email
 																			+ '</td> <td> '
 																			+ json[i].login
-																			+ '</td> <td> <button onclick="verEditar('+json[i].id+')" type="button" class="btn btn-success">Ver</button> </td> </tr>'); /*Função JQuery append (adicionar)*/
+																			+ '</td> <td> <button onclick="verEditar('
+																			+ json[i].id
+																			+ ')" type="button" class="btn btn-success">Ver</button> </td> </tr>'); /*Função JQuery append (adicionar)*/
 
 												}
 

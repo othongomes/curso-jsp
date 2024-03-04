@@ -15,6 +15,28 @@ public class ModelLogin implements Serializable{
 	
 	private boolean useradmin;
 	
+	private String perfil;
+	
+	
+	
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
+	}
+	
+	public String getPerfil() {
+		return perfil;
+	}
+	
+	
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	
+	public boolean getUseradmin() {
+		return useradmin;
+	}
+
+	
 	/*Lógica para vericar se o usuário já existe ou não*/
 	public boolean isNovo() {
 		if (this.id == null) {
@@ -26,14 +48,6 @@ public class ModelLogin implements Serializable{
 	}
 	
 	
-	/*Setter and Getters*/
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-	
-	public boolean getUseradmin() {
-		return useradmin;
-	}
 
 
 	public void setUseradmin(boolean useradmin) {
