@@ -89,41 +89,60 @@
 															<div class="form-group form-default form-static-label">
 																<select class="form-control"
 																	aria-label="Default select example" name="perfil">
-																	<option disabled="disabled">[Selecione o perfil]</option>
-																	
-																	<option value="ADMIN" <% 
-																	
-																	ModelLogin modelLogin = (ModelLogin) request.getAttribute("modelLogin");
-																	
-																	if (modelLogin != null && modelLogin.getPerfil().equalsIgnoreCase("ADMIN")){
-																		out.print(" ");
-																		out.print("selected=\"selected\"");
-																		out.print(" ");
-																	} %>>Admin</option>
-																	
-																	<option value="SECRETARIA" <% 
-																	
-																	modelLogin = (ModelLogin) request.getAttribute("modelLogin");
-																	
-																	if (modelLogin != null && modelLogin.getPerfil().equalsIgnoreCase("SECRETARIA")){
-																		out.print(" ");
-																		out.print("selected=\"selected\"");
-																		out.print(" ");
-																	} %>>Secretária</option>
-																	
-																	<option value="AUXILIAR" <% 
-																	
-																	modelLogin = (ModelLogin) request.getAttribute("modelLogin");
-																	
-																	if (modelLogin != null && modelLogin.getPerfil().equalsIgnoreCase("AUXILIAR")){
-																		out.print(" ");
-																		out.print("selected=\"selected\"");
-																		out.print(" ");
-																	} %>>Auxiliar</option>
-																	
-																</select>
-																<span class="form-bar"></span>
-																<label class="float-label">Perfil:</label>
+																	<option disabled="disabled">[Selecione o
+																		perfil]</option>
+
+																	<option value="ADMIN"
+																		<%ModelLogin modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+
+if (modelLogin != null && modelLogin.getPerfil().equalsIgnoreCase("ADMIN")) {
+	out.print(" ");
+	out.print("selected=\"selected\"");
+	out.print(" ");
+}%>>Admin</option>
+
+																	<option value="SECRETARIA"
+																		<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+
+if (modelLogin != null && modelLogin.getPerfil().equalsIgnoreCase("SECRETARIA")) {
+	out.print(" ");
+	out.print("selected=\"selected\"");
+	out.print(" ");
+}%>>Secretária</option>
+
+																	<option value="AUXILIAR"
+																		<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+
+if (modelLogin != null && modelLogin.getPerfil().equalsIgnoreCase("AUXILIAR")) {
+	out.print(" ");
+	out.print("selected=\"selected\"");
+	out.print(" ");
+}%>>Auxiliar</option>
+
+																</select> <span class="form-bar"></span> <label
+																	class="float-label">Perfil:</label>
+															</div>
+
+
+															<div class="form-group form-default form-static-label">
+																<input type="radio" name="sexo" checked="checked"
+																	value="MASCULINO"
+																	<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+if (modelLogin != null && modelLogin.getSexo().equals("MASCULINO")) {
+	out.print(" ");
+	out.print("checked=\"checked\"");
+	out.print(" ");
+
+}%>>Masculino</>
+																<input type="radio" name="sexo" value="FEMININO"
+																	<%modelLogin = (ModelLogin) request.getAttribute("modelLogin");
+
+if (modelLogin != null && modelLogin.getSexo().equals("FEMININO")) {
+	out.print(" ");
+	out.print("checked=\"checked\"");
+	out.print(" ");
+
+}%>>Feminino</>
 															</div>
 
 															<button type="button"

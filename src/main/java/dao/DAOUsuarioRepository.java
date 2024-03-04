@@ -36,6 +36,7 @@ public class DAOUsuarioRepository {
 			modelLogin.setNome(resultado.getString("nome"));
 			// modelLogin.setSenha(resultado.getString("senha"));
 			modelLogin.setPerfil(resultado.getString("perfil"));
+			modelLogin.setSexo(resultado.getString("sexo"));
 
 			retorno.add(modelLogin);
 		}
@@ -47,7 +48,7 @@ public class DAOUsuarioRepository {
 
 		if (modelLogin.isNovo()) { /* Grava um novo */
 
-			String sql = "INSERT INTO model_login(login, senha, nome, email, usuario_id, perfil) VALUES (?, ?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO model_login(login, senha, nome, email, usuario_id, perfil, sexo) VALUES (?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement preparasql = connection.prepareStatement(sql);
 
 			preparasql.setString(1, modelLogin.getLogin());
@@ -56,12 +57,13 @@ public class DAOUsuarioRepository {
 			preparasql.setString(4, modelLogin.getEmail());
 			preparasql.setLong(5, userLogado);
 			preparasql.setString(6, modelLogin.getPerfil());
+			preparasql.setString(7, modelLogin.getSexo());
 
 			preparasql.execute();
 			connection.commit();
 		} else { /* Editar um existente */
 
-			String sql = "update model_login set login=?, senha=?, nome=?, email=?, perfil=? where id = ?";
+			String sql = "update model_login set login=?, senha=?, nome=?, email=?, perfil=?, sexo=? where id = ?";
 			PreparedStatement statement = connection.prepareStatement(sql);
 
 			statement.setString(1, modelLogin.getLogin());
@@ -69,7 +71,8 @@ public class DAOUsuarioRepository {
 			statement.setString(3, modelLogin.getNome());
 			statement.setString(4, modelLogin.getEmail());
 			statement.setString(5, modelLogin.getPerfil());
-			statement.setLong(6, modelLogin.getId());
+			statement.setString(6, modelLogin.getSexo());
+			statement.setLong(7, modelLogin.getId());
 
 			statement.executeUpdate();
 			connection.commit();
@@ -99,6 +102,7 @@ public class DAOUsuarioRepository {
 			modelLogin.setNome(resultado.getString("nome"));
 			// modelLogin.setSenha(resultado.getString("senha"));
 			modelLogin.setPerfil(resultado.getString("perfil"));
+			modelLogin.setSexo(resultado.getString("sexo"));
 
 			retorno.add(modelLogin);
 		}
@@ -113,17 +117,18 @@ public ModelLogin consultaUsuarioLogado(String login) throws Exception  {
 		
 		PreparedStatement statement = connection.prepareStatement(sql);
 		
-		ResultSet resutlado =  statement.executeQuery();
+		ResultSet resultado =  statement.executeQuery();
 		
-		while (resutlado.next()) /*Se tem resultado*/ {
+		while (resultado.next()) /*Se tem resultado*/ {
 			
-			modelLogin.setId(resutlado.getLong("id"));
-			modelLogin.setEmail(resutlado.getString("email"));
-			modelLogin.setLogin(resutlado.getString("login"));
-			modelLogin.setSenha(resutlado.getString("senha"));
-			modelLogin.setNome(resutlado.getString("nome"));
-			modelLogin.setUseradmin(resutlado.getBoolean("useradmin"));
-			modelLogin.setPerfil(resutlado.getString("perfil"));
+			modelLogin.setId(resultado.getLong("id"));
+			modelLogin.setEmail(resultado.getString("email"));
+			modelLogin.setLogin(resultado.getString("login"));
+			modelLogin.setSenha(resultado.getString("senha"));
+			modelLogin.setNome(resultado.getString("nome"));
+			modelLogin.setUseradmin(resultado.getBoolean("useradmin"));
+			modelLogin.setPerfil(resultado.getString("perfil"));
+			modelLogin.setSexo(resultado.getString("sexo"));
 			
 		}
 		
@@ -154,7 +159,8 @@ public ModelLogin consultaUsuarioLogado(String login) throws Exception  {
 			modelLogin.setSenha(resultado.getString("senha"));
 			modelLogin.setNome(resultado.getString("nome"));
 			modelLogin.setUseradmin(resultado.getBoolean("useradmin"));
-			modelLogin.setPerfil(resultado.getString("perfil"));;
+			modelLogin.setPerfil(resultado.getString("perfil"));
+			modelLogin.setSexo(resultado.getString("sexo"));
 
 		}
 
@@ -183,6 +189,7 @@ public ModelLogin consultaUsuarioLogado(String login) throws Exception  {
 			modelLogin.setNome(resultado.getString("nome"));
 			modelLogin.setUseradmin(resultado.getBoolean("useradmin"));
 			modelLogin.setPerfil(resultado.getString("perfil"));
+			modelLogin.setSexo(resultado.getString("sexo"));
 
 		}
 
@@ -210,6 +217,7 @@ public ModelLogin consultaUsuarioLogado(String login) throws Exception  {
 			modelLogin.setSenha(resultado.getString("senha"));
 			modelLogin.setNome(resultado.getString("nome"));
 			modelLogin.setPerfil(resultado.getString("perfil"));
+			modelLogin.setSexo(resultado.getString("sexo"));
 		}
 
 		return modelLogin;
