@@ -50,7 +50,7 @@
 													<div class="card-block">
 
 
-														<form class="form-material"
+														<form class="form-material" enctype="multipart/form-data"
 															action="<%=request.getContextPath()%>/ServletUsuarioController"
 															method="post" id="formuser">
 
@@ -61,6 +61,14 @@
 																	value="${modelLogin.id}" class="form-control" /> <span
 																	class="form-bar"></span> <label class="float-label">ID:</label>
 															</div>
+
+															<div class="form-group form-default input-group mb-4">
+																<div class="input-group-prepend">
+																	<img id="fotoembase64" alt="Imagem User" src="" width="70px">
+																</div>
+																<input id="fileFoto" type="file" accept="image/*" onchange="visualizarImg('fotoembase64', 'fileFoto');" class="form-control-file" style="margin-top: 15px; margin-left: 5px">
+															</div>
+
 															<div class="form-group form-default form-static-label">
 																<input type="email" name="email" id="email"
 																	value="${modelLogin.email}" class="form-control"
@@ -273,8 +281,30 @@ if (modelLogin != null && modelLogin.getSexo().equals("FEMININO")) {
 			</div>
 			<!-- END Modal -->
 
-
+			<!-- INICIO DO JAVASCRIPT -->
 			<script type="text/javascript">
+			/**/
+			
+			
+				function visualizarImg(fotoembase64, fileFoto) {			
+					
+					var preview = document.getElementById(fotoembase64); /*campo img do html*/
+					var fileUser = document.getElementById(fileFoto).files[0];
+					var reader = new FileReader();
+					
+					reader.onloadend = function () {
+						preview.src = reader.result; /*carrega a fot na tela*/
+					};
+					
+					if (fileUser) {
+						reader.readAsDataURL(fileUser); /*Preview da imagem*/
+					} else {
+						preview.src = '';
+					}
+					
+				}
+				
+
 				/*Função verEditar para o botão "ver"*/
 				function verEditar(id) {
 
