@@ -64,9 +64,14 @@
 
 															<div class="form-group form-default input-group mb-4">
 																<div class="input-group-prepend">
-																	<img id="fotoembase64" alt="Imagem User" src="" width="70px">
+																	<img id="fotoembase64" alt="Imagem User" src=""
+																		width="70px">
 																</div>
-																<input id="fileFoto" type="file" accept="image/*" onchange="visualizarImg('fotoembase64', 'fileFoto');" class="form-control-file" style="margin-top: 15px; margin-left: 5px">
+																<input id="fileFoto" name="fileFoto" type="file"
+																	accept="image/*"
+																	onchange="visualizarImg('fotoembase64', 'fileFoto');"
+																	class="form-control-file"
+																	style="margin-top: 15px; margin-left: 5px">
 															</div>
 
 															<div class="form-group form-default form-static-label">
@@ -283,27 +288,25 @@ if (modelLogin != null && modelLogin.getSexo().equals("FEMININO")) {
 
 			<!-- INICIO DO JAVASCRIPT -->
 			<script type="text/javascript">
-			/**/
-			
-			
-				function visualizarImg(fotoembase64, fileFoto) {			
-					
-					var preview = document.getElementById(fotoembase64); /*campo img do html*/
-					var fileUser = document.getElementById(fileFoto).files[0];
+				/**/
+
+				function visualizarImg(fotoembase64, filefoto) {
+
+					var preview = document.getElementById(fotoembase64); // campo IMG html
+					var fileUser = document.getElementById(filefoto).files[0];
 					var reader = new FileReader();
-					
-					reader.onloadend = function () {
-						preview.src = reader.result; /*carrega a fot na tela*/
+
+					reader.onloadend = function() {
+						preview.src = reader.result; /*Carrega a foto na tela*/
 					};
-					
+
 					if (fileUser) {
 						reader.readAsDataURL(fileUser); /*Preview da imagem*/
 					} else {
 						preview.src = '';
 					}
-					
+
 				}
-				
 
 				/*Função verEditar para o botão "ver"*/
 				function verEditar(id) {

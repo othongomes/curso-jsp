@@ -3,7 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.tomcat.jakartaee.commons.compress.utils.IOUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
@@ -13,7 +13,6 @@ import dao.DAOUsuarioRepository;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
@@ -128,11 +127,12 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			modelLogin.setPerfil(perfil);
 			modelLogin.setSexo(sexo);
 			
-
+			
 			if (ServletFileUpload.isMultipartContent(request)) {
 				Part part = request.getPart("fileFoto"); /* Pega foto da tela */
 				byte[] foto = IOUtils.toByteArray(part.getInputStream()); /* Converte imagem para byte */
-				String imagemBase64 = new Base64().encodeBase64String(foto);
+				String imagemBase64 = "data:image/" + part.getContentType() + ";base64," + new Base64().encodeBase64String(foto); /*Converte a imagem para string*/
+				
 			}
 
 			/* VERIFICANDO SE USUÁRIO JÁ EXISTE COM O MÉTODO VALIDARLOGIN SENÃO SALVA */
